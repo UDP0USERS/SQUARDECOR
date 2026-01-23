@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SQUARE DECOR | الفخامة السعودية</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <style>
+        :root {
+            --gold-primary: #bf953f;
+            --gold-gradient: linear-gradient(145deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --royal-purple: #2e1065;
+            --bg-dark: #020617;
+            --bg-light: #f4f4f4;
+            --text-dark: #ffffff;
+            --text-light: #020617;
+            --transition-smooth: all 0.5s ease;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--royal-purple);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        /* Light Mode */
+        body.light-mode { background-color: var(--bg-light) !important; color: var(--text-light) !important; }
+        body.light-mode .contact-card, body.light-mode .form-wrapper, body.light-mode .about-card, body.light-mode .service-item {
+            background: #fff !important; color: #000 !important; border: 1px solid #ddd !important;
+        }
+        body.light-mode .text-muted { color: #555 !important; }
+        body.light-mode .navbar-brand img { filter: invert(1); mix-blend-mode: multiply; }
+        body.light-mode .nav-link { color: #000 !important; }
+
+        /* Typography & Utils */
+        h1, h2, h3, .royal-font { font-family: 'Amiri', serif; }
+        
+        /* 1. إصلاح القائمة (Navbar Fixes) */
+        #mainNavbar { padding: 15px 0; transition: 0.4s; background: transparent; }
+        #mainNavbar.scrolled { background: rgba(2, 6, 23, 0.98); padding: 10px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .nav-link { 
+            color: #ffffff !important; font-weight: 700; font-size: 1.1rem; margin: 0 10px; transition: 0.3s; 
+        }
+        .nav-link:hover { color: var(--gold-primary) !important; transform: translateY(-2px); }
+        .navbar-brand img { height: 60px; mix-blend-mode: screen; }
+
+        /* Mobile Menu */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                position: fixed; top: 0; right: -100%; width: 85%; height: 100vh;
+                background: linear-gradient(180deg, #1a0b2e, #2e1065);
+                transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                display: flex; flex-direction: column; justify-content: center; align-items: center;
+                z-index: 9999; box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+            }
+            .navbar-collapse.show { right: 0; }
+            .nav-link { font-size: 1.8rem !important; margin: 20px 0; color: #fff !important; }
+        }
+
+        /* Buttons */
+        .gold-button {
+            background: var(--gold-gradient); color: #000 !important; font-weight: 900;
+            padding: 12px 35px; border-radius: 50px; text-decoration: none; display: inline-block;
+            border: none; transition: 0.4s; cursor: pointer;
+        }
+        .gold-button:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(191, 149, 63, 0.4); }
+
+        /* 4. تفاعل الأقسام (Hover Effects) */
+        .stat-item { transition: all 0.4s ease; padding: 20px; border-radius: 15px; }
+        .stat-item:hover { 
+            transform: scale(1.15) translateY(-10px); 
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .stat-item:hover h2 { color: var(--gold-primary) !important; text-shadow: 0 0 10px rgba(191, 149, 63, 0.5); }
+
+        /* Services & General */
+        .service-item {
+            padding: 40px; border-radius: 30px; background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; height: 100%;
+        }
+        .service-item:hover { border-color: var(--gold-primary); transform: translateY(-10px); }
+        .service-item i { font-size: 3.5rem; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
+
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #020617;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000;
+            transition: opacity 1s ease;
+        }
+        #preloader img { width: 150px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{transform: scale(1);} 50%{transform: scale(1.1);} }
+
+        /* Form styling */
+        .form-control {
+            background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important;
+            color: inherit !important; border-radius: 15px; padding: 15px;
+        }
+        
+        /* Modal Customization */
+        .modal-content { background-color: var(--royal-purple); border: 1px solid var(--gold-primary); color: #fff; }
+        body.light-mode .modal-content { background-color: #fff; color: #000; }
+    </style>
+</head>
+<body id="dynamic-body">
+
+    <div id="preloader">
+        <img src="Logo.jpeg" alt="Loading...">
+        <div style="width: 150px; height: 3px; background: #333; margin-top: 20px; border-radius: 5px; overflow: hidden;">
+            <div style="width: 100%; height: 100%; background: var(--gold-gradient); animation: load 2s linear;"></div>
+        </div>
+        <style>@keyframes load { from {width:0;} to {width:100%;} }</style>
+    </div>
+
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="logaU.jpeg" alt="Logo"></a>
+            
+            <div class="d-flex align-items-center gap-2 order-lg-3">
+                <button onclick="toggleTheme()" class="btn btn-outline-light rounded-circle" style="width:40px;height:40px; border-color:var(--gold-primary); color:var(--gold-primary)"><i class="fas fa-moon" id="themeIcon"></i></button>
+                <button onclick="toggleLang()" class="btn btn-outline-light rounded-circle fw-bold" style="width:40px;height:40px; border-color:var(--gold-primary); color:var(--gold-primary)">EN</button>
+                
+                <button class="navbar-toggler border-0 ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                    <i class="fas fa-bars fs-1" style="color: #fff;"></i>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    <li class="nav-item"><a class="nav-link" href="#" data-i18n="home">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about" data-i18n="about">من نحن</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services" data-i18n="services">خدماتنا</a></li>
+                    <li class="nav-item"><a class="nav-link" href="levels.html" data-i18n="works" style="color: var(--gold-primary) !important;">أعمالنا</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="contact">اتصل بنا</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section style="height: 100vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1920') center/cover fixed; display: flex; align-items: center;">
+        <div class="container text-center text-md-start">
+            <div class="col-lg-9" data-aos="fade-up">
+                <h5 class="text-uppercase mb-3" style="color: var(--gold-primary); letter-spacing: 3px;">SQUARE DECOR</h5>
+                <h1 class="display-2 fw-bold mb-4">نحول الفراغات إلى <span style="background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">تحف فنية</span></h1>
+                <p class="lead mb-5 opacity-75" data-i18n="hero_desc">دقة في المواعيد.. فخامة في التنفيذ.. ورؤية سعودية عالمية.</p>
+                <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3">
+                    <a href="#contact" class="gold-button btn-lg" data-i18n="consult">استشارة مجانية</a>
+                    <a href="levels.html" class="btn btn-outline-light rounded-pill px-5 py-3 fw-bold" data-i18n="explore">أعمالنا</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4 text-center bg-white text-dark shadow-lg rounded-5 p-5 mx-2 position-relative" style="margin-top: -80px; z-index: 10;">
+                <div class="col-6 col-md-3 stat-item">
+                    <h2 class="display-4 fw-black" style="color: var(--royal-purple);">+12</h2>
+                    <p class="text-muted fw-bold" data-i18n="exp">سنة خبرة</p>
+                </div>
+                <div class="col-6 col-md-3 stat-item">
+                    <h2 class="display-4 fw-black" style="color: var(--royal-purple);">+15</h2>
+                    <p class="text-muted fw-bold" data-i18n="eng">مهندس محترف</p>
+                </div>
+                <div class="col-6 col-md-3 stat-item">
+                    <h2 class="display-4 fw-black" style="color: var(--royal-purple);">100%</h2>
+                    <p class="text-muted fw-bold" data-i18n="sat">رضا العملاء</p>
+                </div>
+                <div class="col-6 col-md-3 stat-item">
+                    <h2 class="display-4 fw-black" style="color: var(--royal-purple);">250+</h2>
+                    <p class="text-muted fw-bold" data-i18n="proj">مشروع</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-100" id="about">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="p-5 rounded-5" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(191,149,63,0.3);">
+                        <h2 class="display-5 fw-bold mb-4" data-i18n="philosophy">فلسفة سكوير</h2>
+                        <p class="fs-5 opacity-75 mb-4">نؤمن بأن كل زاوية في منزلك تحكي قصة فخامة سعودية، نمزج الأصالة بالحداثة لنخلق بيئة تفوق توقعاتك.</p>
+                        <button class="gold-button" data-bs-toggle="modal" data-bs-target="#philosophyModal" data-i18n="read_more">اقرأ المزيد عن شركتنا</button>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0 text-center" data-aos="fade-left">
+                    <img src="Logo.jpeg" class="img-fluid rounded-5 shadow-lg" style="max-height: 400px;" alt="About">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" id="services">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" data-i18n="services">خدماتنا</h2>
+                <div style="width: 80px; height: 3px; background: var(--gold-gradient); margin: 10px auto;"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up"><div class="service-item"><i class="fas fa-pencil-ruler"></i><h4 data-i18n="srv_design">تصميم داخلي</h4><p class="opacity-75">مخططات 3D واقعية.</p></div></div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="service-item"><i class="fas fa-hard-hat"></i><h4 data-i18n="srv_exec">إشراف وتنفيذ</h4><p class="opacity-75">دقة وجودة عالية.</p></div></div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="service-item"><i class="fas fa-couch"></i><h4 data-i18n="srv_furn">تأثيث</h4><p class="opacity-75">اختيار أرقى القطع.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" id="contact">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5" data-aos="fade-left">
+                    <div class="p-5 rounded-5" style="background: rgba(255,255,255,0.03);">
+                        <h3 class="mb-4" data-i18n="contact_info">معلومات التواصل</h3>
+                        <p class="fs-5 mb-4"><i class="fas fa-phone text-warning me-2"></i> +966 541 272 797</p>
+                        <p class="fs-5 mb-5"><i class="fas fa-map-marker-alt text-warning me-2"></i> الرياض، المملكة العربية السعودية 🇸🇦</p>
+                        
+                        <h5 class="mb-3" data-i18n="follow_us">تابعونا على</h5>
+                        <div class="d-flex gap-3">
+                            <a href="https://www.tiktok.com/@square4decor?lang=ar&is_from_webapp=1&sender_device=mobile&sender_web_id=7597607731185567252" target="_blank" class="gold-button btn-sm rounded-circle p-3"><i class="fab fa-tiktok fs-4"></i></a>
+                            <a href="https://www.instagram.com/square4decor?igsh=Y2Rja2xudXkwcHMy" target="_blank" class="gold-button btn-sm rounded-circle p-3"><i class="fab fa-instagram fs-4"></i></a>
+                            <a href="https://www.snapchat.com/add/squaredecor?share_id=dDqGlO0xpOQ&locale=ar-EG" target="_blank" class="gold-button btn-sm rounded-circle p-3"><i class="fab fa-snapchat fs-4"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-right">
+                    <form class="bg-white p-5 rounded-5 text-dark">
+                        <h3 class="mb-4" data-i18n="write_us">راسلنا الآن</h3>
+                        <label class="form-label fw-bold" data-i18n="lbl_name">الاسم الكامل</label>
+                        <input type="text" id="name" class="form-control mb-3" placeholder="" style="background: #f8f8f8 !important; color: #000 !important;">
+                        
+                        <label class="form-label fw-bold" data-i18n="lbl_phone">رقم الجوال</label>
+                        <input type="tel" id="phone" class="form-control mb-3" placeholder="+966" style="background: #f8f8f8 !important; color: #000 !important;">
+                        
+                        <label class="form-label fw-bold" data-i18n="lbl_details">تفاصيل المشروع</label>
+                        <textarea id="msg" class="form-control mb-3" rows="4" style="background: #f8f8f8 !important; color: #000 !important;"></textarea>
+                        
+                        <button type="button" onclick="sendWA()" class="gold-button w-100" data-i18n="btn_send">إرسال عبر واتساب</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #020617; padding: 80px 0 30px; text-align: center;">
+        <div class="container">
+            <img src="logaU.jpeg" alt="Logo" class="mb-4" style="height: 90px; filter: brightness(0) invert(1);">
+            <p class="opacity-50 small">&copy; 2026 SQUARE DECOR. Luxury Saudi Design.</p>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="philosophyModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-4 rounded-4">
+                <div class="modal-header border-0">
+                    <h3 class="modal-title royal-font text-gold" style="color: var(--gold-primary);">قصة نجاح سكوير</h3>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="Logo.jpeg" class="img-fluid rounded-3 mb-4" style="height: 150px;">
+                    <p class="fs-5 leading-loose">
+                        تأسست شركة سكوير للديكور لتكون علامة فارقة في عالم التصميم الداخلي بالمملكة. نحن نجمع بين خبرة السنين وروح الشباب المبدعة. <br><br>
+                        لقد قمنا بتنفيذ أكثر من 250 مشروعاً ناجحاً، بدءاً من القصور الملكية وصولاً إلى المكاتب التجارية الفاخرة. سر نجاحنا يكمن في اهتمامنا بأدق التفاصيل، من اختيار نوع الرخام إلى توزيع الإضاءة الذكية. <br><br>
+                        نحن لا نسلمك مجرد مخططات، بل نسلمك واقعاً ملموساً يفوق خيالك.
+                    </p>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="gold-button" data-bs-dismiss="modal">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({duration: 1000});
+        
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => document.getElementById('preloader').style.display = 'none', 1000);
+            }, 1500);
+        };
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('mainNavbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // WhatsApp Logic
+        function sendWA() {
+            const n = document.getElementById('name').value;
+            const p = document.getElementById('phone').value;
+            const m = document.getElementById('msg').value;
+            if(!n || !p) return alert('الرجاء ملء البيانات');
+            window.open(`https://wa.me/966541272797?text=الاسم: ${n}%0aالجوال: ${p}%0aالتفاصيل: ${m}`, '_blank');
+        }
+
+        // Translation Dictionary
+        const content = {
+            ar: {
+                home: "الرئيسية", about: "من نحن", services: "خدماتنا", works: "أعمالنا", contact: "اتصل بنا",
+                hero_desc: "دقة في المواعيد.. فخامة في التنفيذ.. ورؤية سعودية عالمية.",
+                consult: "استشارة مجانية", explore: "أعمالنا",
+                exp: "سنة خبرة", eng: "مهندس محترف", sat: "رضا العملاء", proj: "مشروع",
+                philosophy: "فلسفة سكوير", read_more: "اقرأ المزيد",
+                services: "خدماتنا", srv_design: "تصميم داخلي", srv_exec: "إشراف وتنفيذ", srv_furn: "تأثيث",
+                contact_info: "معلومات التواصل", follow_us: "تابعونا على", write_us: "راسلنا الآن",
+                lbl_name: "الاسم الكامل", lbl_phone: "رقم الجوال", lbl_details: "تفاصيل المشروع", btn_send: "إرسال عبر واتساب"
+            },
+            en: {
+                home: "Home", about: "About Us", services: "Services", works: "Portfolio", contact: "Contact",
+                hero_desc: "Precision in timing.. Luxury in execution.. Global Saudi vision.",
+                consult: "Free Consult", explore: "Portfolio",
+                exp: "Years Exp.", eng: "Engineers", sat: "Satisfaction", proj: "Projects",
+                philosophy: "Square Philosophy", read_more: "Read More",
+                services: "Services", srv_design: "Interior Design", srv_exec: "Supervision", srv_furn: "Furniture",
+                contact_info: "Contact Info", follow_us: "Follow Us", write_us: "Write to Us",
+                lbl_name: "Full Name", lbl_phone: "Phone Number", lbl_details: "Project Details", btn_send: "Send via WhatsApp"
+            }
+        };
+
+        let lang = 'ar';
+        function toggleLang() {
+            lang = lang === 'ar' ? 'en' : 'ar';
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+            
+            // Translate Text
+            document.querySelectorAll('[data-i18n]').forEach(e => {
+                e.textContent = content[lang][e.getAttribute('data-i18n')];
+            });
+
+            // Translate Placeholders
+            if (lang === 'en') {
+                document.getElementById('name').placeholder = "Ex: Mohammed";
+                document.getElementById('phone').placeholder = "+966...";
+                document.getElementById('msg').placeholder = "Tell us about your project...";
+            } else {
+                document.getElementById('name').placeholder = "مثال: محمد";
+                document.getElementById('phone').placeholder = "+966...";
+                document.getElementById('msg').placeholder = "تفاصيل المشروع...";
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.getElementById('themeIcon');
+            icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
+        }
+    </script>
+</body>
+</html>
